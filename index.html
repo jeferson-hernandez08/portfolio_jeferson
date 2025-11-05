@@ -16,6 +16,26 @@
             --text-light: #7f8c8d;
             --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             --transition: all 0.3s ease;
+            --card-bg: white;
+            --section-bg: white;
+            --section-alt-bg: #f8f9fa;
+            --title-color: #2c3e50;
+        }
+
+        /* Modo Noche */
+        body.dark-mode {
+            --primary: #1a1a2e;
+            --secondary: #4e54c8;
+            --accent: #ff7e5f;
+            --light: #16213e;
+            --dark: #0f3460;
+            --text: #e6e6e6;
+            --text-light: #a0a0a0;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --card-bg: #1a1a2e;
+            --section-bg: #16213e;
+            --section-alt-bg: #0f3460;
+            --title-color: #ffffff;
         }
 
         * {
@@ -33,6 +53,7 @@
             color: var(--text);
             background-color: var(--light);
             line-height: 1.6;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
         /* Header & Navigation */
@@ -44,6 +65,7 @@
             top: 0;
             z-index: 1000;
             box-shadow: var(--shadow);
+            transition: var(--transition);
         }
 
         .nav-container {
@@ -69,6 +91,7 @@
         .nav-menu {
             display: flex;
             list-style: none;
+            align-items: center;
         }
 
         .nav-menu li {
@@ -102,6 +125,27 @@
             width: 100%;
         }
 
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 5px;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: scale(1.1);
+        }
+
         .hamburger {
             display: none;
             cursor: pointer;
@@ -114,6 +158,7 @@
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
             text-align: center;
+            transition: var(--transition);
         }
 
         .hero-content {
@@ -159,7 +204,49 @@
             flex-wrap: wrap;
         }
 
-        .email-link, .cv-link {
+        .email-container {
+            display: flex;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+        }
+
+        .email-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .email-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .copy-btn {
+            background: none;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .copy-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .copy-btn.copied {
+            background-color: rgba(46, 204, 113, 0.3);
+            color: #2ecc71;
+        }
+
+        .cv-link {
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -172,22 +259,51 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .email-link:hover, .cv-link:hover {
+        .cv-link:hover {
             background-color: rgba(255, 255, 255, 0.2);
             transform: translateY(-3px);
+        }
+
+        /* Toast de confirmación */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 5px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast i {
+            color: #2ecc71;
         }
 
         /* Social Section */
         .social {
             padding: 80px 20px;
-            background-color: white;
+            background-color: var(--section-bg);
+            transition: var(--transition);
         }
 
         .section-title {
             text-align: center;
             font-size: 2.2rem;
             margin-bottom: 50px;
-            color: var(--primary);
+            color: var(--title-color);
             position: relative;
         }
 
@@ -220,12 +336,13 @@
             padding: 20px;
             border-radius: 10px;
             width: 150px;
+            background-color: var(--card-bg);
+            box-shadow: var(--shadow);
         }
 
         .social-link:hover {
             transform: translateY(-10px);
             box-shadow: var(--shadow);
-            background-color: white;
         }
 
         .social-icon {
@@ -241,6 +358,10 @@
             color: #333;
         }
 
+        .dark-mode .social-link:nth-child(2) .social-icon {
+            color: #f0f0f0;
+        }
+
         .social-name {
             font-weight: 600;
             font-size: 1.1rem;
@@ -249,7 +370,8 @@
         /* Projects Section */
         .projects {
             padding: 80px 20px;
-            background-color: #f8f9fa;
+            background-color: var(--section-alt-bg);
+            transition: var(--transition);
         }
 
         .projects-grid {
@@ -261,7 +383,7 @@
         }
 
         .project-card {
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: 10px;
             overflow: hidden;
             box-shadow: var(--shadow);
@@ -286,7 +408,7 @@
         .project-title {
             font-size: 1.3rem;
             margin-bottom: 10px;
-            color: var(--primary);
+            color: var(--title-color);
         }
 
         .project-description {
@@ -334,7 +456,8 @@
         /* Skills Section */
         .skills {
             padding: 80px 20px;
-            background-color: white;
+            background-color: var(--section-bg);
+            transition: var(--transition);
         }
 
         .skills-container {
@@ -346,16 +469,17 @@
         }
 
         .skills-category {
-            background-color: #f8f9fa;
+            background-color: var(--section-alt-bg);
             padding: 30px;
             border-radius: 10px;
             box-shadow: var(--shadow);
+            transition: var(--transition);
         }
 
         .skills-category h3 {
             font-size: 1.5rem;
             margin-bottom: 20px;
-            color: var(--primary);
+            color: var(--title-color);
             text-align: center;
             position: relative;
         }
@@ -382,7 +506,7 @@
             flex-direction: column;
             align-items: center;
             padding: 15px 10px;
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: 8px;
             transition: var(--transition);
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
@@ -412,7 +536,7 @@
         }
 
         .soft-skill-item {
-            background-color: white;
+            background-color: var(--card-bg);
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
@@ -427,7 +551,7 @@
         .soft-skill-title {
             font-weight: 600;
             margin-bottom: 10px;
-            color: var(--primary);
+            color: var(--title-color);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -448,6 +572,7 @@
             color: white;
             padding: 40px 20px;
             text-align: center;
+            transition: var(--transition);
         }
 
         .footer-content {
@@ -582,10 +707,28 @@
             .skills-container {
                 grid-template-columns: 1fr;
             }
+
+            .email-container {
+                flex-direction: column;
+                border-radius: 30px;
+                overflow: visible;
+            }
+
+            .copy-btn {
+                border-left: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Toast de confirmación -->
+    <div class="toast" id="copyToast">
+        <i class="fas fa-check-circle"></i>
+        <span>¡Correo copiado con éxito!</span>
+    </div>
+
     <!-- Header & Navigation -->
     <header>
         <div class="nav-container">
@@ -595,6 +738,11 @@
                 <li><a href="#social">Social</a></li>
                 <li><a href="#projects">Mis Proyectos</a></li>
                 <li><a href="#skills">Habilidades</a></li>
+                <li>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Cambiar modo">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
             </ul>
             <div class="hamburger">
                 <i class="fas fa-bars"></i>
@@ -605,13 +753,18 @@
     <!-- Hero Section (Sobre Mí) -->
     <section id="about" class="hero">
         <div class="hero-content">
-            <img src="https://i.imgur.com/3Q7Yc3Q.jpeg" alt="Jeferson Hernandez" class="profile-img">
+            <img src="assets/images/Photo2.jpeg" alt="Jeferson Hernandez" class="profile-img">
             <h1>Jeferson Hernandez</h1>
             <p>Desarrollador full-stack comprometido, proactivo, amante de la tecnología y apasionado por la informática, reconocido por excelencia académica en el SENA, enfocado en crear soluciones eficientes y de calidad.</p>
             <div class="contact-info">
-                <a href="mailto:jefer.hernandez1@gmail.com" class="email-link">
-                    <i class="fas fa-envelope"></i> jefer.hernandez1@gmail.com
-                </a>
+                <div class="email-container">
+                    <a href="mailto:jefer.hernandez1@gmail.com" class="email-link">
+                        <i class="fas fa-envelope"></i> jefer.hernandez1@gmail.com
+                    </a>
+                    <button class="copy-btn" id="copyEmail" aria-label="Copiar correo electrónico">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
                 <a href="assets/Curriculum Jeferson Hernandez.pdf" class="cv-link" target="_blank">
                     <i class="fas fa-file-pdf"></i> Ver Curriculum
                 </a>
@@ -640,7 +793,7 @@
         <div class="projects-grid">
             <!-- Proyecto 1 -->
             <div class="project-card">
-                <img src="https://i.imgur.com/6JbZ4Jq.png" alt="Sena Contigo" class="project-img">
+                <img src="assets/project-images/sena-contigo3.png" alt="Sena Contigo" class="project-img">
                 <div class="project-content">
                     <h3 class="project-title">Sena Contigo</h3>
                     <p class="project-description">Plataforma de apoyo a aprendices SENA que facilita la comunicación y el acceso a recursos educativos.</p>
@@ -651,6 +804,9 @@
                         <span class="tech-tag">Bootstrap</span>
                     </div>
                     <div class="project-links">
+                        <a href="https://github.com/tu-usuario/sena-contigo" class="project-link" target="_blank">
+                            <i class="fas fa-globe"></i> Ver Proyecto
+                        </a>
                         <a href="https://github.com/tu-usuario/sena-contigo" class="project-link" target="_blank">
                             <i class="fab fa-github"></i> Ver Código
                         </a>
@@ -671,6 +827,9 @@
                         <span class="tech-tag">JWT</span>
                     </div>
                     <div class="project-links">
+                        <a href="https://github.com/tu-usuario/sena-contigo" class="project-link" target="_blank">
+                            <i class="fas fa-globe"></i> Ver Proyecto
+                        </a>
                         <a href="https://github.com/tu-usuario/api-laravel" class="project-link" target="_blank">
                             <i class="fab fa-github"></i> Ver Código
                         </a>
@@ -691,6 +850,9 @@
                         <span class="tech-tag">API REST</span>
                     </div>
                     <div class="project-links">
+                        <a href="https://github.com/tu-usuario/sena-contigo" class="project-link" target="_blank">
+                            <i class="fas fa-globe"></i> Ver Proyecto
+                        </a>
                         <a href="https://github.com/tu-usuario/app-flutter" class="project-link" target="_blank">
                             <i class="fab fa-github"></i> Ver Código
                         </a>
@@ -795,7 +957,7 @@
                 <a href="mailto:jefer.hernandez1@gmail.com"><i class="fas fa-envelope"></i></a>
             </div>
             <div class="copyright">
-                &copy; 2023 Jeferson Hernandez. Todos los derechos reservados.
+                &copy; 2025 Jeferson Hernandez. Todos los derechos reservados.
             </div>
         </div>
     </footer>
@@ -830,6 +992,95 @@
                 header.style.backgroundColor = 'var(--primary)';
                 header.style.backdropFilter = 'none';
             }
+        });
+
+        // Dark/Light Mode Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+
+        // Check for saved theme preference or respect OS preference
+        const savedTheme = localStorage.getItem('theme') || 
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        if (savedTheme === 'dark') {
+            enableDarkMode();
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (body.classList.contains('dark-mode')) {
+                disableDarkMode();
+            } else {
+                enableDarkMode();
+            }
+        });
+
+        function enableDarkMode() {
+            body.classList.add('dark-mode');
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+            localStorage.setItem('theme', 'dark');
+        }
+
+        function disableDarkMode() {
+            body.classList.remove('dark-mode');
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+            localStorage.setItem('theme', 'light');
+        }
+
+        // Función para copiar el correo electrónico
+        const copyEmailBtn = document.getElementById('copyEmail');
+        const copyToast = document.getElementById('copyToast');
+
+        copyEmailBtn.addEventListener('click', () => {
+            const email = 'jefer.hernandez1@gmail.com';
+            
+            // Usar la API del portapapeles
+            navigator.clipboard.writeText(email).then(() => {
+                // Mostrar el toast de confirmación
+                copyToast.classList.add('show');
+                
+                // Cambiar el ícono temporalmente
+                const icon = copyEmailBtn.querySelector('i');
+                icon.classList.remove('fa-copy');
+                icon.classList.add('fa-check');
+                copyEmailBtn.classList.add('copied');
+                
+                // Restaurar después de 2 segundos
+                setTimeout(() => {
+                    copyToast.classList.remove('show');
+                    icon.classList.remove('fa-check');
+                    icon.classList.add('fa-copy');
+                    copyEmailBtn.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Error al copiar el correo: ', err);
+                // Fallback para navegadores más antiguos
+                const textArea = document.createElement('textarea');
+                textArea.value = email;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                // Mostrar el toast de confirmación
+                copyToast.classList.add('show');
+                
+                // Cambiar el ícono temporalmente
+                const icon = copyEmailBtn.querySelector('i');
+                icon.classList.remove('fa-copy');
+                icon.classList.add('fa-check');
+                copyEmailBtn.classList.add('copied');
+                
+                // Restaurar después de 2 segundos
+                setTimeout(() => {
+                    copyToast.classList.remove('show');
+                    icon.classList.remove('fa-check');
+                    icon.classList.add('fa-copy');
+                    copyEmailBtn.classList.remove('copied');
+                }, 2000);
+            });
         });
     </script>
 </body>
